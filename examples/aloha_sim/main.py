@@ -9,6 +9,7 @@ from openpi_client.runtime import runtime as _runtime
 from openpi_client.runtime.agents import policy_agent as _policy_agent
 import saver as _saver
 import tyro
+import viewer as _viewer
 
 
 @dataclasses.dataclass
@@ -43,6 +44,7 @@ def main(args: Args) -> None:
         ),
         subscribers=[
             _saver.VideoSaver(args.out_dir),
+            _viewer.LiveViewer(),
         ],
         max_hz=50,
     )
