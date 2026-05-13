@@ -1,8 +1,9 @@
 import tkinter as tk
 
 import numpy as np
-from PIL import Image, ImageTk
 from openpi_client.runtime import subscriber as _subscriber
+from PIL import Image
+from PIL import ImageTk
 from typing_extensions import override
 
 
@@ -20,7 +21,7 @@ class LiveViewer(_subscriber.Subscriber):
         w, h = 224 * self._scale, 224 * self._scale
         self._root = tk.Tk()
         self._root.title("ALOHA Sim — π₀ Policy Inference")
-        self._root.resizable(False, False)
+        self._root.resizable(width=False, height=False)
         blank = Image.fromarray(np.zeros((h, w, 3), dtype=np.uint8))
         self._tk_img = ImageTk.PhotoImage(blank)
         self._label = tk.Label(self._root, image=self._tk_img, bg="black")
@@ -32,7 +33,7 @@ class LiveViewer(_subscriber.Subscriber):
         if self._root is None:
             return
         im = observation["images"]["cam_high"]  # [C, H, W]
-        im = np.transpose(im, (1, 2, 0))        # [H, W, C]
+        im = np.transpose(im, (1, 2, 0))  # [H, W, C]
         w, h = 224 * self._scale, 224 * self._scale
         pil = Image.fromarray(im).resize((w, h), Image.NEAREST)
         new_img = ImageTk.PhotoImage(pil)
