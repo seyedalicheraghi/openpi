@@ -101,3 +101,22 @@ uv run python scripts/train.py "$CONFIG_NAME" \
   $RESUME_FLAG
 
 echo "[start] complete. Checkpoints at: $CKPT_DIR"
+
+# ---------------- Auto-stop on finish (cost safety) ----------------
+# Opt-in: set AUTO_STOP_ON_FINISH=1 and RUNPOD_API_KEY in the pod env to
+# automatically stop this pod after training succeeds. Stopping (not
+# terminating) preserves /workspace; you'll be billed only for volume
+# storage (~$0.10/GB/mo) until you terminate the pod manually.
+if [ "${AUTO_STOP_ON_FINISH:-0}" = "1" ]; then
+  if [ -z "${RUNPOD_POD_ID:-}" ]; then
+    echo "[start] AUTO_STOP_ON_FINISH=1 but RUNPOD_POD_ID is unset — cannot auto-stop"
+  elif ! command -v runpodctl >/dev/null 2>&1; then
+    echo "[start] AUTO_STOP_ON_FINISH=1 but runpodctl not installed — cannot auto-stop"
+  elif [ -z "${RUNPOD_API_KEY:-}" ]; then
+    echo "[start] AUTO_STOP_ON_FINISH=1 but RUNPOD_API_KEY is unset — cannot auto-stop"
+  else
+    echo "[start] auto-stopping pod $RUNPOD_POD_ID (AUTO_STOP_ON_FINISH=1)"
+    runpodctl config --apiKey "$RUNPOD_API_KEY" >/dev/null
+    runpodctl stop pod "$RUNPOD_POD_ID" || echo "[start] auto-stop failed; stop the pod manually"
+  fi
+fi
