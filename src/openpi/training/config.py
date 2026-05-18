@@ -1044,10 +1044,10 @@ _CONFIGS = [
             action_expert_variant="gemma_300m_lora",
         ).get_freeze_filter(),
         ema_decay=None,
-        num_train_steps=15_000,
+        num_train_steps=16_000,
         batch_size=16,
-        save_interval=1000,
-        keep_period=5000,
+        save_interval=4000,   # checkpoint at 4k, 8k, 12k, 16k
+        keep_period=4000,     # keep all of them permanently (no GC)
     ),
     # RoboArena & PolaRiS configs.
     *roboarena_config.get_roboarena_configs(),
