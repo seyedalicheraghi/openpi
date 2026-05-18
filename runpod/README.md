@@ -17,7 +17,8 @@ volume attached.
 
 - **GPU:** 1× RTX A6000 (48 GB).
 - **Template:** any PyTorch 2.x + CUDA 12.x community image. Recommended:
-  `runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04`.
+  `runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04`. (`uv sync` will
+  install Python 3.12 inside the venv automatically — lerobot v0.5.1 requires it.)
 - **Volume:** **≥ 80 GB persistent volume mounted at `/workspace`**.
   Storage usage breakdown:
   - Repo + Python env: ~6 GB

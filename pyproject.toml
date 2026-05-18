@@ -3,7 +3,7 @@ name = "openpi"
 version = "0.1.0"
 description = "Physical Intelligence open source repo"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"  # bumped from 3.11 — lerobot v0.5.1 requires py3.12+
 license = { file = "LICENSE" }
 dependencies = [
     "augmax>=0.3.4",
@@ -19,7 +19,7 @@ dependencies = [
     "jaxtyping==0.2.36",
     "lerobot",
     "ml_collections==1.0.0",
-    "numpy>=1.22.4,<2.0.0",
+    "numpy>=2.0.0,<2.3.0",  # bumped from <2.0 — required by lerobot v0.5.1
     "numpydantic>=1.6.6",
     "opencv-python>=4.10.0.84",
     "openpi-client",
@@ -34,7 +34,7 @@ dependencies = [
     "filelock>=3.16.1",
     "beartype==0.19.0",
     "treescope>=0.1.7",
-    "transformers==4.53.2",
+    "transformers==5.3.0",  # bumped from 4.53.2 — matches lerobot v0.5.1's [pi] extra; needed for hf_hub 1.x compat
     "rich>=14.0.0",
     "polars>=1.30.0",
 ]
@@ -53,19 +53,17 @@ dev = [
     "matplotlib>=3.10.0",
     "pynvml>=12.0.0",
 ]
-rlds = [
-    "dlimp",
-    "tensorflow-cpu==2.15.0",
-    "tensorflow-datasets==4.9.9",
-]
+# rlds group removed: dlimp + tensorflow==2.15 require numpy<2.0, which is
+# incompatible with lerobot v0.5.1 (needs numpy 2.x). Re-add if you need DROID
+# RLDS training, but you'll need a dlimp fork that supports tensorflow 2.16+.
 
 [tool.uv]
 override-dependencies = ["ml-dtypes==0.4.1", "tensorstore==0.1.74"]
 
 [tool.uv.sources]
 openpi-client = { workspace = true }
-lerobot = { git = "https://github.com/huggingface/lerobot", rev = "0cf864870cf29f4738d3ade893e6fd13fbd7cdb5" }
-dlimp = { git = "https://github.com/kvablack/dlimp", rev = "ad72ce3a9b414db2185bc0b38461d4101a65477a" }
+lerobot = { git = "https://github.com/huggingface/lerobot", rev = "1396b9fab7aecddd10006c33c47a487ffdcb54b4" }  # v0.5.1 — supports dataset codebase_version v3.0
+# dlimp removed alongside the rlds dep group — see comment above.
 
 [tool.uv.workspace]
 members = ["packages/*"]
