@@ -33,6 +33,7 @@ dependencies = [
     "wandb>=0.19.1",
     "filelock>=3.16.1",
     "beartype==0.19.0",
+    "chex==0.1.90",  # used by openpi.models.utils.fsq_tokenizer; missing from this fork
     "treescope>=0.1.7",
     "transformers==5.3.0",  # bumped from 4.53.2 — matches lerobot v0.5.1's [pi] extra; needed for hf_hub 1.x compat
     "rich>=14.0.0",
