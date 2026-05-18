@@ -27,7 +27,7 @@ dependencies = [
     "pillow>=11.0.0",
     "sentencepiece>=0.2.0",
     "torch==2.7.1",
-    "torchcodec==0.7.0",  # matches torch 2.7 ABI; lerobot v0.5.1 allows 0.3-0.10 but its lockfile auto-picks 0.10 (built against torch 2.10) → undefined-symbol c10::MessageLogger::stream[abi:cxx11]
+    "torchcodec==0.5",  # torch 2.7 ↔ torchcodec 0.5 per torchcodec README compat table. (0.10 fails import; 0.7 imports but its op schemas need torch 2.8+ — DataLoader workers crash with NotImplementedError on torchcodec_ns::_convert_to_tensor.)
     "tqdm-loggable>=0.2",
     "typing-extensions>=4.12.2",
     "tyro>=0.9.5",
