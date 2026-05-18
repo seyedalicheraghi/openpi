@@ -1030,12 +1030,12 @@ _CONFIGS = [
             action_expert_variant="gemma_300m_lora",
         ),
         data=LeRobotSO101DataConfig(
-            repo_id="alicheraghi/robot-arm-filtered",
+            repo_id="alicheraghi/lerobotv2",
             assets=AssetsConfig(
                 assets_dir="gs://openpi-assets/checkpoints/pi05_base/assets",
                 asset_id="trossen",
             ),
-            default_prompt="Pick up the orange ball and place it in the red bucket.",
+            default_prompt="Pick up the white box and place it in the white target area.",
         ),
         weight_loader=weight_loaders.CheckpointWeightLoader("gs://openpi-assets/checkpoints/pi05_base/params"),
         freeze_filter=pi0_config.Pi0Config(

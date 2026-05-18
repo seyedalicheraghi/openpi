@@ -68,9 +68,9 @@ GIT_LFS_SKIP_SMUDGE=1 uv pip install -e .
 if [ -d /workspace ]; then
   export HF_HOME="${HF_HOME:-/workspace/.cache/huggingface}"
   export HF_DATASETS_CACHE="${HF_DATASETS_CACHE:-$HF_HOME/datasets}"
-  export LEROBOT_HOME="${LEROBOT_HOME:-/workspace/.cache/lerobot}"
-  mkdir -p "$HF_HOME" "$HF_DATASETS_CACHE" "$LEROBOT_HOME"
-  echo "[start] HF_HOME=$HF_HOME  LEROBOT_HOME=$LEROBOT_HOME"
+  export HF_LEROBOT_HOME="${HF_LEROBOT_HOME:-/workspace/.cache/lerobot}"
+  mkdir -p "$HF_HOME" "$HF_DATASETS_CACHE" "$HF_LEROBOT_HOME"
+  echo "[start] HF_HOME=$HF_HOME  HF_LEROBOT_HOME=$HF_LEROBOT_HOME"
 fi
 
 # ---------------- Norm stats ----------------
