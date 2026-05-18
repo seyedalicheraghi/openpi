@@ -27,6 +27,7 @@ dependencies = [
     "pillow>=11.0.0",
     "sentencepiece>=0.2.0",
     "torch==2.7.1",
+    "torchcodec==0.7.0",  # matches torch 2.7 ABI; lerobot v0.5.1 allows 0.3-0.10 but its lockfile auto-picks 0.10 (built against torch 2.10) → undefined-symbol c10::MessageLogger::stream[abi:cxx11]
     "tqdm-loggable>=0.2",
     "typing-extensions>=4.12.2",
     "tyro>=0.9.5",
